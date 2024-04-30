@@ -1,0 +1,7 @@
+#heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: orange;
+    border: 2px solid green;
+}
