@@ -1,3 +1,6 @@
+import React from "react"
+import ReactDOM from "react-dom/client"
+
 const parent = React.createElement("div",
     { id: "parent" },
     React.createElement("div", { id: "child" },
@@ -10,8 +13,8 @@ const parent = React.createElement("div",
 //     { id: "heading" },
 //     "I am really amazing and I can do anything in this world.")
 
-console.log(parent)
-
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
 root.render(parent)
+
+// episode 2 - 1h 23 min
