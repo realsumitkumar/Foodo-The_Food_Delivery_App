@@ -17,4 +17,4 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<AppLayout />)
 
 
-//Episode 6 - starts
+//Episode 6 - 2 hr 6 min
