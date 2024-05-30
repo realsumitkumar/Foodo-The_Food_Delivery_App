@@ -71,3 +71,16 @@
     cursor: pointer;
     
 }
+
+.res-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.user-card {
+    border: 1px solid orangered;
+    padding : 10px;
+}

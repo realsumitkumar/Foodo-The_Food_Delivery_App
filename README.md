@@ -10,3 +10,7 @@
 -is a utility JS function given by the react
     useState() : Super powerful state variable
     useEffect() :
+
+# Routing 
+    -Client side Routing
+    -Server side Routing
