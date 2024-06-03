@@ -1,4 +1,4 @@
-import React from "react"
+import React, { lazy, Suspense } from "react"
 import ReactDOM from "react-dom/client"
 import Header from "./components/Header"
 import Body from "./components/Body"
@@ -7,6 +7,12 @@ import Contact from "./components/Contact"
 import Error from "./components/Error"
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom"
 import RestaurantMenu from "./components/RestaurantMenu"
+import Shimmer from "./components/Shimmer"
+// import Grocery from "./components/Grocery"
+
+//lazy loading, code splitting, chunking, dynamic loading
+const Grocery = lazy(() => import("./components/Grocery"))
+const About = lazy(() => import("./components/About"))
 
 const AppLayout = () => {
     return (
@@ -28,17 +34,23 @@ const browserRoutes = createBrowserRouter([
             },
             {
                 path: "/about",
-                element: <About />,
+                element: (<Suspense fallback={<h1>Loading Please wait...</h1>}>  <About />   </Suspense>),
             },
             {
                 path: "/contact",
                 element: <Contact />,
             },
             {
+                path: "/grocery",
+                element: (<Suspense fallback={<h1>Loading Please wait...</h1>}> <Grocery /> </Suspense>)
+            },
+            {
                 path: "/restaurants/:resId",
                 element: <RestaurantMenu />
 
             }
+
+
         ],
         errorElement: <Error />,
     },
@@ -50,4 +62,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<RouterProvider router={browserRoutes} />)
 
 
-// Episode 8 - 1.32 min
+// Episode 11 - 19 min
+

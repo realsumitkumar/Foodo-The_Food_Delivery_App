@@ -1,25 +1,13 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { MENU_URL } from "../utils/constants";
+import useRestaurantMenu from "../utils/useRestaurantMenu"
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
-    const [resMenu, setResMenu] = useState("");
     const { resId } = useParams(); // Destructuring on the fly the value which we get from useParams()
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
-
-    const fetchMenu = async () => {
-        try {
-            const data = await fetch(MENU_URL + resId);
-            const json = await data.json();
-            setResMenu(json?.data);
-        } catch (error) {
-            console.error("Error fetching menu:", error);
-        }
-    };
+    const resMenu = useRestaurantMenu(resId)
 
     if (!resMenu) {
         return <Shimmer />;
@@ -28,23 +16,25 @@ const RestaurantMenu = () => {
     const { name, areaName, avgRating, costForTwoMessage, cuisines } = resMenu?.cards[2]?.card?.card?.info;
     const { itemCards } = resMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
+    // console.log(resMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR)
+
+    //filters the card with ItemCategory 
+    const itemCategory = resMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter((c) => {
+        return (c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+    })
+
     return (
-        <div className="res-menu">
-            <h1>{name} : {areaName}</h1>
-            <h3>{cuisines.join(", ")}</h3>
-            <h3>{avgRating} Stars : {costForTwoMessage}</h3>
-            <h3>Menu Items</h3>
-            <ul>
-                {itemCards ? (
-                    itemCards.map((item) => (
-                        <li key={item.card.info.id}>
-                            {item.card.info.name} - Rs.{item.card.info.price / 100}
-                        </li>
-                    ))
-                ) : (
-                    <li>No menu items available</li>
-                )}
-            </ul>
+        <div className="res-menu text-center">
+            <h1 className="text-xl font-bold">{name} : {areaName}</h1>
+            <h3 className="text-lg font-bold">Cuisines: {cuisines.join(", ")}</h3>
+            <div>
+                {itemCategory.map((category) => {
+                    return (
+                        <RestaurantCategory data={category?.card.card} />
+                    )
+                })}
+            </div>
+
         </div>
     );
 };
