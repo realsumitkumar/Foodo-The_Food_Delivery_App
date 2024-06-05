@@ -1,8 +1,9 @@
 import RestaurantCard, { withPromotedRestaurant } from "./RestaurantCard"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Shimmer from "./Shimmer"
 import { Link } from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus"
+import UserContext from "../utils/UserContext"
 
 const Body = () => {
     const [listOfRestaurant, setListOfRestaurant] = useState([])
@@ -11,6 +12,9 @@ const Body = () => {
 
     //a higher-order component is a function that takes a component and returns a new component.
     const PromotedRestaurant = withPromotedRestaurant(RestaurantCard)
+
+    //getting context from useContext
+    const { loggedUserInfo, setUserName } = useContext(UserContext)
 
     useEffect(() => {
         fetchData()
@@ -51,6 +55,12 @@ const Body = () => {
                     }}
                     >Top restaurant</button>
                 </div>
+
+                <div className="m-5 ">
+                    <label>Username: </label>
+                    <input className=" bg-slate-600 rounded-md border-black border-2 " type="text" value={loggedUserInfo} onChange={(e) => setUserName(e.target.value)} />
+                </div>
+
             </div>
             <div className="res-container flex flex-wrap">
                 {
@@ -64,8 +74,6 @@ const Body = () => {
                         </Link>
                     ))
                 }
-
-                {console.log(listOfRestaurant)}
             </div>
         </div>
     )

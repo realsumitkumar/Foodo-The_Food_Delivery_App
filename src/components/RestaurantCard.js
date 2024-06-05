@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { RES_LOGO } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 const RestaurantCard = ({ resData }) => {
     const { name, cuisines, avgRating, sla } = resData?.info
+
+    const { loggedUserInfo } = useContext(UserContext)//user from the context
 
     return (
         <div className="res-card m-4 w-[220px] h-[400px] rounded-lg bg-purple-100 hover:bg-purple-700">
@@ -13,6 +17,8 @@ const RestaurantCard = ({ resData }) => {
                     <h4 className="my-1">{avgRating} stars</h4>
                     <h4 className="my-1">{resData.info.costForTwo} </h4>
                     <h4 className="my-1">{sla.deliveryTime} minutes</h4>
+                    <h4 className="my-1">User: {loggedUserInfo}</h4>
+
                 </center>
             </div>
         </div>

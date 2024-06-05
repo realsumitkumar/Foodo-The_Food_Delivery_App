@@ -1,4 +1,5 @@
 import React from "react"
+import UserContext from "../utils/UserContext"
 
 class UserClass extends React.Component {
     constructor(props) {
@@ -10,12 +11,12 @@ class UserClass extends React.Component {
                 avatar: ""
             }
         }
-        console.log(this.props.name + " Child constructor")
+        // console.log(this.props.name + " Child constructor")
     }
 
     async componentDidMount() {
 
-        console.log(this.props.name + " Child componentDidMount")
+        // console.log(this.props.name + " Child componentDidMount")
 
         const data = await fetch("https://api.github.com/users/realsumitkumar")
         const json = await data.json()
@@ -26,20 +27,26 @@ class UserClass extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("componentDidUpdate is called")
+        // console.log("componentDidUpdate is called")
     }
 
     componentWillUnmount() {
-        console.log("componentWillUnmount is called")
+        // console.log("componentWillUnmount is called")
     }
 
     render() {
         let { login, avatar_url } = this.state.userInfo
 
-        console.log(this.props.name + " Child render")
+        // console.log(this.props.name + " Child render")
 
         return (
             <div className="user-card">
+                <div>
+                    Username:
+                    <UserContext.Consumer >
+                        {({ loggedUserInfo }) => <div className="font-bold">{loggedUserInfo}</div>}
+                    </UserContext.Consumer>
+                </div>
                 <img src={avatar_url} alt="userImage" />
                 <h3>Name: {login}</h3>
             </div>

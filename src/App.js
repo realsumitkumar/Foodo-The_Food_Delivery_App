@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react"
+import React, { lazy, Suspense, useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import Header from "./components/Header"
 import Body from "./components/Body"
@@ -8,18 +8,33 @@ import Error from "./components/Error"
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom"
 import RestaurantMenu from "./components/RestaurantMenu"
 import Shimmer from "./components/Shimmer"
+import UserContext from "./utils/UserContext"
 // import Grocery from "./components/Grocery"
 
 //lazy loading, code splitting, chunking, dynamic loading
 const Grocery = lazy(() => import("./components/Grocery"))
 const About = lazy(() => import("./components/About"))
 
+
 const AppLayout = () => {
+
+    const [userName, setUserName] = useState([])
+
+    useEffect(() => {
+        //suppose fetching userName Password from the API and we got the data 
+        const data = {
+            name: "Sumit Kumar"
+        }
+        setUserName(data.name)
+    }, [])
+
     return (
-        <div className="app">
-            <Header />
-            <Outlet />
-        </div>
+        <UserContext.Provider value={{ loggedUserInfo: userName, setUserName }}>
+            <div className="app">
+                <Header />
+                <Outlet />
+            </div>
+        </UserContext.Provider>
     )
 }
 
@@ -62,5 +77,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<RouterProvider router={browserRoutes} />)
 
 
-// Episode 11 - 19 min
+// Episode 11 - 2hr 8 min
 

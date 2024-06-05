@@ -9,12 +9,13 @@ const RestaurantMenu = () => {
 
     const resMenu = useRestaurantMenu(resId)
 
+    const [showIndex, setShowIndex] = useState([])
+
     if (!resMenu) {
         return <Shimmer />;
     }
 
-    const { name, areaName, avgRating, costForTwoMessage, cuisines } = resMenu?.cards[2]?.card?.card?.info;
-    const { itemCards } = resMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+    const { name, areaName, cuisines } = resMenu?.cards[2]?.card?.card?.info;
 
     // console.log(resMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR)
 
@@ -28,9 +29,14 @@ const RestaurantMenu = () => {
             <h1 className="text-xl font-bold">{name} : {areaName}</h1>
             <h3 className="text-lg font-bold">Cuisines: {cuisines.join(", ")}</h3>
             <div>
-                {itemCategory.map((category) => {
+                {itemCategory.map((category, index) => {
                     return (
-                        <RestaurantCategory data={category?.card.card} />
+                        <RestaurantCategory key={category?.card?.card?.title} data={category?.card.card}
+
+                            showItems={index === showIndex ? true : false}
+
+                            setShowIndex={() => setShowIndex(index)}//this function will only be called from child(RestaurantCategory) and index is already provided beforehand
+                        />
                     )
                 })}
             </div>

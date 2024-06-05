@@ -1,12 +1,15 @@
 import { LOGO_URL } from "../utils/constants";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
     const [text, setText] = useState("Log-in")
 
     const onlineStatus = useOnlineStatus()
+
+    const { loggedUserInfo } = useContext(UserContext)
 
     return (
         < div className="flex justify-between items-center mx-5" >
@@ -24,6 +27,7 @@ const Header = () => {
                     <button className="flex m-5" onClick={() => {
                         text === "Log-out" ? setText("Log-in") : setText("Log-out")
                     }}>{text}</button>
+                    <li>{loggedUserInfo}</li>
                 </ul>
             </div>
         </div>
