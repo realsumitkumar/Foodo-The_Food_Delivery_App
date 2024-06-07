@@ -9,7 +9,11 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom"
 import RestaurantMenu from "./components/RestaurantMenu"
 import Shimmer from "./components/Shimmer"
 import UserContext from "./utils/UserContext"
-// import Grocery from "./components/Grocery"
+import { Provider } from "react-redux"
+import appStore from "./utils/appStore"
+import Cart from "./components/Cart"
+
+
 
 //lazy loading, code splitting, chunking, dynamic loading
 const Grocery = lazy(() => import("./components/Grocery"))
@@ -29,12 +33,15 @@ const AppLayout = () => {
     }, [])
 
     return (
-        <UserContext.Provider value={{ loggedUserInfo: userName, setUserName }}>
-            <div className="app">
-                <Header />
-                <Outlet />
-            </div>
-        </UserContext.Provider>
+        //redux-toolkit from redux
+        <Provider store={appStore}>
+            <UserContext.Provider value={{ loggedUserInfo: userName, setUserName }}>
+                <div className="app">
+                    <Header />
+                    <Outlet />
+                </div>
+            </UserContext.Provider>
+        </Provider>
     )
 }
 
@@ -60,6 +67,11 @@ const browserRoutes = createBrowserRouter([
                 element: (<Suspense fallback={<h1>Loading Please wait...</h1>}> <Grocery /> </Suspense>)
             },
             {
+                path: "/cart",
+                element: <Cart />
+
+            },
+            {
                 path: "/restaurants/:resId",
                 element: <RestaurantMenu />
 
@@ -77,5 +89,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<RouterProvider router={browserRoutes} />)
 
 
-// Episode 11 - 2hr 8 min
+// Episode 12 - 39 min
 

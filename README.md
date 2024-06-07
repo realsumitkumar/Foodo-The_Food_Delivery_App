@@ -14,3 +14,23 @@
 # Routing 
     -Client side Routing
     -Server side Routing
+
+# Redux Toolkit
+    -Install @reduxjs/toolkit and react-redux
+    -Build our store
+    -Connect our store to the app
+    -Slice(cartSlice)
+    -dispatch(action)
+    -Selector
+
+# Types of Testing (as developers)
+    -Unit testing
+    -Integration testing
+    -End to End testing/ e2e testing (tools are required, eg Selenium)
+
+# Setting up Testing in our App
+    -Install React Testing Library
+    -Install JEST
+    -Install Babel dependencies(from JEST official website)
+    -Configure Babel
+    -Configure Parcel Config file to disable Babel transpilation in Parcel, and overriding the default Parcel config
