@@ -13,7 +13,7 @@ import { Provider } from "react-redux"
 import appStore from "./utils/appStore"
 import Cart from "./components/Cart"
 
-
+// this is the new app
 
 //lazy loading, code splitting, chunking, dynamic loading
 const Grocery = lazy(() => import("./components/Grocery"))
