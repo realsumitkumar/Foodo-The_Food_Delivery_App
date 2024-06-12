@@ -1,31 +1,44 @@
-import { render, screen} from "@testing-library/react"
-import Contact from "../Contact"
-import "@testing-library/jest-dom"
+import { render, screen } from "@testing-library/react";
+import Contact from "../Contact";
+import "@testing-library/jest-dom";
 
-test("Contact Us page should be loaded ", () => {
-    render(<Contact/>);
+//decribe can be used to wrap one kind of test cases
+describe("test cases for contact us page", () => {
+  beforeAll(() => {
+    console.log("before all");
+  });
 
-    const heading = screen.getByRole("heading")
+  beforeEach(() => {
+    console.log("before each");
+  });
 
-    expect(heading).toBeInTheDocument()
-})
+  //   afterAll and afterEach are also there
 
-test("Button should be loaded ", () => {
-    render(<Contact/>);
+  //test or it both mean the same thing
+  test("Should load contact us page ", () => {
+    render(<Contact />);
 
-    const button = screen.getByText("Submit")
+    const heading = screen.getByRole("heading");
 
-    expect(button).toBeInTheDocument()
-})
+    expect(heading).toBeInTheDocument();
+  });
 
-test("Get 2 textBoxes in the page", () => {
-    render(<Contact/>)
+  test("Should load button", () => {
+    render(<Contact />);
+
+    const button = screen.getByText("Submit");
+
+    expect(button).toBeInTheDocument();
+  });
+
+  test("Should get 2 textBoxes in the page", () => {
+    render(<Contact />);
 
     //Quering
-    const textBox = screen.getAllByRole("textbox") //for getting all textBoxes, will throw an error if we use getByRole and there are multiple elements
+    const textBox = screen.getAllByRole("textbox"); //for getting all textBoxes, will throw an error if we use getByRole and there are multiple elements
 
     // screen.getAllByRole("textbox") - will return JSX => React element => Object (JS)
 
-    expect(textBox.length).toBe(2)
-    
-})
+    expect(textBox.length).toBe(2);
+  });
+});

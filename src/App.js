@@ -13,11 +13,9 @@ import { Provider } from "react-redux"
 import appStore from "./utils/appStore"
 import Cart from "./components/Cart"
 
-
 //lazy loading, code splitting, chunking, dynamic loading
 const Grocery = lazy(() => import("./components/Grocery"))
 const About = lazy(() => import("./components/About"))
-
 
 const AppLayout = () => {
 
@@ -88,5 +86,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<RouterProvider router={browserRoutes} />)
 
 
-// Episode 12 - 1.55 
+// Episode 12 - 2.27
 
