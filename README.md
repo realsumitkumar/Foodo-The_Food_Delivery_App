@@ -1,4 +1,4 @@
-# Notes for React 
+# Foodo-The food delivery app
 
 /**Components 
  * Header-logo,nav items
